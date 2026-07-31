@@ -1,40 +1,39 @@
-# TokenSentinel — Frontend
+# TokenSentinel
 
-ITWeb Security Summit Hackathon 2026 | Secure Innovation Stream
+AI-powered insider fraud detection and SIEM dashboard for prepaid electricity vending systems.
+
+## The Problem
+Prepaid electricity vending is vulnerable to insider fraud — vendor staff exploiting weak audit trails to issue unauthorized or fraudulent tokens. This costs utility providers revenue and undermines trust in the vending process.
+
+## The Solution
+TokenSentinel gives vendors and utility providers real-time visibility into vending activity through:
+- **Vendor Portal** — token request and issuance, with HMAC-secured output
+- **SIEM Dashboard** — live fraud scoring per vendor, with anomaly detection
+- **Audit Trail** — full transaction log with provenance for investigation
 
 ## Setup
-
-```bash
+\`\`\`
 npm install
-npm run dev        # development (localhost)
-npm run dev --host # expose on Raspberry Pi network
-```
-
-Open: http://localhost:5173 (or http://192.168.4.1:5173 on Pi)
+npm run dev
+\`\`\`
+Open `http://localhost:5173`
 
 ## Demo flow
+1. Log in as a vendor
+2. Generate tokens via the Vendor Portal
+3. Open the SIEM Dashboard and run the fraud simulator to see live scoring
+4. Review flagged transactions in the Audit Trail
 
-1. Login as VENDOR_007
-2. Generate tokens on the Vendor Portal
-3. Switch to SIEM Dashboard → click "Run attack simulator"
-4. Watch fraud score climb live → lockout fires
-5. Switch to Audit Trail → scroll red fraud rows
-6. Deliver the closing line
+## Architecture
+- `src/App.jsx` — app state and routing
+- `src/VendorPortal.jsx` — token issuance
+- `src/SIEMDashboard.jsx` — fraud scoring dashboard
+- `src/AuditTrail.jsx` — transaction log
+- `src/data.js` — mock data (swap for live API)
 
-## Files
+## Roadmap
+- Connect to real backend: `POST /vend`, `GET /audit-trail`, `WS /ws` for live fraud stream
+- Deployed pilot with a vending partner
 
-- src/App.jsx          — root app, state, routing
-- src/Nav.jsx          — navigation bar
-- src/Login.jsx        — vendor login screen
-- src/VendorPortal.jsx — token request + HMAC output
-- src/SIEMDashboard.jsx— live fraud chart + vendor scores
-- src/AuditTrail.jsx   — transaction log + provenance
-- src/data.js          — mock data + helpers
-- src/index.css        — full design system
-
-## Connecting to backend
-
-Replace the mock data in data.js with real API calls:
-- POST /vend          → token generation
-- GET  /audit-trail   → transaction log
-- WS   /ws            → live fraud score stream
+## Built by
+[Malebo](https://github.com/codingwithlebo) — Cybersecurity and software development student, Melsoft Academy
